@@ -1,0 +1,73 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Détail du Compte Bancaire{% endblock title %}
+
+{% block contenu %}
+{% include "navbar/navbar.html" %}
+
+<div class="container mt-4 mb-4">
+    <h1 class="text-center mb-4">Détail du Compte Bancaire</h1>
+
+    <!-- Informations générales du compte -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-university"></i> Informations Générales</h5>
+            <p><strong>Entreprise :</strong> {{ compte.company.company_name }}</p>
+            <p><strong>Nom de la Banque :</strong> {{ compte.bank_name }}</p>
+            <p><strong>Numéro de Compte :</strong> {{ compte.account_number }}</p>
+            <p><strong>Devise :</strong> {{ compte.account_currency }}</p>
+        </div>
+    </div>
+
+    <!-- Solde actuel -->
+    <div class="card shadow mb-4">
+        <div class="card-body text-center">
+            <h5 class="card-title"><i class="fas fa-wallet"></i> Solde Actuel</h5>
+            <p class="display-4"><span class="badge bg-success">{{ compte.current_balance }}</span></p>
+        </div>
+    </div>
+
+    <!-- Historique des transactions -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-exchange-alt"></i> Historique des Transactions</h5>
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Montant</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                        <tr>
+                            <td>{{ transaction.date }}</td>
+                            <td>{{ transaction.description }}</td>
+                            <td>
+                                <span class="badge">
+                                    {{ transaction.amount }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge">
+                                    {{ transaction.type }}
+                                </span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="d-flex justify-content-between mt-4 mb-4">
+        <a href="{% url 'compte_bancaire' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Retour à la liste des comptes</a>
+    </div>
+</div>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+{% endblock contenu %}

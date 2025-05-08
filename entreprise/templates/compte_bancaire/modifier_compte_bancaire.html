@@ -1,0 +1,67 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Modifier un Compte Bancaire{% endblock title %}
+
+{% block contenu %}
+{% include "navbar/navbar.html" %}
+
+<div class="container d-flex align-items-center justify-content-center vh-100 mt-5 mb-5">
+    <div class="card shadow w-50 mb-4">
+        <div class="card-body">
+            <h1 class="text-center mb-4">Modifier un Compte Bancaire</h1>
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Entreprise associée -->
+                <div class="mb-3">
+                    <label for="company" class="form-label">Entreprise associée :</label>
+                    <select class="form-select" id="company" name="company">
+                            <option value="">
+                                Nom de l'entreprise
+                            </option>
+                    </select>
+                </div>
+
+                <!-- Nom de la Banque -->
+                <div class="mb-3">
+                    <label for="bank_name" class="form-label">Nom de la Banque :</label>
+                    <input type="text" class="form-control" id="bank_name" name="bank_name" value="">
+                </div>
+
+                <!-- Numéro de Compte -->
+                <div class="mb-3">
+                    <label for="account_number" class="form-label">Numéro de Compte :</label>
+                    <input type="text" class="form-control" id="account_number" name="account_number" value="">
+                </div>
+
+                <!-- Devise -->
+                <div class="mb-3">
+                    <label for="account_currency" class="form-label">Devise :</label>
+                    <select class="form-select" id="account_currency" name="account_currency">
+                        <option value="USD">Dollar US ($)</option>
+                        <option value="EUR">Euro (€)</option>
+                        <option value="CDF">Franc Congolais (CDF)</option>
+                    </select>
+                </div>
+
+                <!-- Solde Actuel -->
+                <div class="mb-3">
+                    <label for="current_balance" class="form-label">Solde Actuel :</label>
+                    <input type="number" class="form-control" id="current_balance" name="current_balance" value="{{ compte_bancaire.current_balance }}">
+                </div>
+
+                <!-- Bouton soumettre -->
+                <div class="d-flex justify-content-between mt-3">
+                    {% for valeur in comptes %}
+                    <a href="{% url 'compte_bancaire' valeur.id %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Retour</a>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-warning"><i class="fas fa-edit"></i> Modifier le compte</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+{% endblock contenu %}

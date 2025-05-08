@@ -1,0 +1,27 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Modifier un Projet{% endblock title %}
+
+{% block contenu %}
+{% include "navbar/navbar.html" %}
+
+<div class="container d-flex align-items-center justify-content-center vh-150 mt-5 mb-5">
+    <div class="card shadow w-50 mt-3 mb-3">
+        <div class="card-body">
+            <h1 class="text-center mb-4">Modifier le Projet</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <!-- Bouton soumettre -->
+                <div class="d-flex justify-content-between mt-3">
+                    <a href="{% url 'projet' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Retour</a>
+                    <button type="submit" class="btn btn-warning"><i class="fas fa-edit"></i> Modifier le projet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+{% endblock contenu %}

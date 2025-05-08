@@ -1,0 +1,74 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Transactions{% endblock title %}
+
+{% block contenu %}
+{% include "navbar/navbar.html" %}
+
+<div class="container mt-4 mb-5">
+    <h1 class="text-center mb-4">📊 Gestion des Transactions</h1>
+
+    <!-- Bouton Ajouter une transaction -->
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'ajouter_transaction' %}" class="btn btn-success btn-lg shadow">
+            <i class="fas fa-plus-circle"></i> Ajouter une transaction
+        </a>
+    </div>
+
+    <!-- Filtres et tri -->
+    <div class="card shadow-lg p-4 mb-4 bg-light rounded">
+        <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-filter"></i> Filtres</h5>
+            <form class="row g-3">
+                {% csrf_token %}
+                <div class="col-md-4">
+                    <label for="dateDebut" class="form-label">📅 Date de début :</label>
+                    <input type="date" class="form-control shadow-sm" id="dateDebut">
+                </div>
+                <div class="col-md-4">
+                    <label for="dateFin" class="form-label">📅 Date de fin :</label>
+                    <input type="date" class="form-control shadow-sm" id="dateFin">
+                </div>
+                <div class="col-md-4">
+                    <label for="typeTransaction" class="form-label">💰 Type de transaction :</label>
+                    <select class="form-select shadow-sm" id="typeTransaction">
+                        <option value="">Toutes</option>
+                        <option value="credit">Crédit</option>
+                        <option value="debit">Débit</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Liste des transactions sous forme de cartes -->
+    <div class="row">
+        {% for transaction in donnee_t %}
+            <div class="col-md-4">
+                <div class="card shadow-lg p-3 mb-4 rounded">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-calendar-day"></i> {{ transaction.date }}</h5>
+                        <p><strong>📝 Description :</strong> {{ transaction.description }}</p>
+                        <p><strong>💸 Montant :</strong> 
+                            <span class="badge {% if transaction.type == 'credit' %} bg-success {% else %} bg-danger {% endif %}">
+                                {% if transaction.type == 'credit' %} + {% else %} - {% endif %}${{ transaction.amount }}
+                            </span>
+                        </p>
+                        <p><strong>🔄 Type :</strong> <span class="badge bg-info">{{ transaction.type }}</span></p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Retour -->
+    <div class="text-center mt-4">
+        <a href="{% url 'tableau_de_bord' %}" class="btn btn-secondary btn-lg shadow">
+            <i class="fas fa-arrow-left"></i> Retour au Tableau de Bord </a>
+    </div>
+</div>
+
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+{% endblock contenu %}

@@ -1,0 +1,119 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Tableau de bord{% endblock title %}
+
+{% block contenu %}
+{% include "navbar/navbar.html" %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Barre latérale -->
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+            <div class="sidebar-sticky py-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="{% url 'tableau_de_bord' %}" class="nav-link active">
+                            <i class="fas fa-tachometer-alt"></i> Tableau de bord
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        {% for valeur in projet %}
+                        <a href="{% url 'apercu_projet' %}" class="nav-link">
+
+                            <i class="fas fa-project-diagram"></i> Aperçu des projets
+                        </a>
+                        {% endfor %}
+                    </li>
+                    <li class="nav-item">
+                        {% for valeur in projet %}
+                        <a href="{% url 'detail_compte_bancaire' valeur.id %}" class="nav-link">
+                            <i class="fas fa-university"></i> Aperçu des comptes bancaires
+                        </a>
+                        {% endfor %}
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Contenu principal -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <h1 class="my-4">Tableau de Bord</h1>
+
+            <div class="row">
+                <!-- Indicateur clé de trésorerie -->
+                <div class="col-md-4">
+                    <div class="card bg-primary text-white shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-wallet"></i> Indicateur clé de trésorerie
+                            </h5>
+                            <p class="card-text">Solde actuel : <span class="badge bg-light text-dark">$1,000,000</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aperçu des projets -->
+                <div class="col-md-4">
+                    <div class="card bg-success text-white shadow">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-tasks"></i> Aperçu des projets</h5>
+                            <p>Projets actifs : <strong>5</strong></p>
+                            <p>Projets terminés : <strong>12</strong></p>
+                            <a href="{% url 'projet' %}" class="btn btn-light btn-sm">Voir tous les projets</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aperçu des comptes bancaires -->
+                <div class="col-md-4">
+                    <div class="card bg-warning text-dark shadow">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-university"></i> Aperçu des comptes bancaires</h5>
+                            <p>Total des comptes : <strong>3</strong></p>
+                            <p>Solde total : <strong>$120,000</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <!-- Transactions récentes -->
+                <div class="col-md-6">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-exchange-alt"></i> Transactions récentes</h5>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between">
+                                    Paiement fournisseur - <span class="badge bg-danger">-$5,000</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    Virement interne - <span class="badge bg-warning">-$10,000</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    Réception paiement client - <span class="badge bg-success">+$8,000</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alertes et notifications -->
+                <div class="col-md-6">
+                    <div class="card bg-danger text-white shadow">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-bell"></i> Alertes & Notifications</h5>
+                            <ul class="list-group">
+                                <li class="list-group-item bg-danger text-white">Compte bancaire faible solde</li>
+                                <li class="list-group-item bg-warning">Projet en retard</li>
+                                <li class="list-group-item bg-info">Nouvelle transaction à vérifier</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Lien vers Font Awesome pour les icônes -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+{% endblock contenu %}

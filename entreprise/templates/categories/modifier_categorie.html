@@ -1,0 +1,49 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Modifier une Catégorie{% endblock title %}
+
+{% block contenu %}
+{% include "navbar/navbar.html" %}
+
+<div class="container d-flex align-items-center justify-content-center vh-100 mt-5 mb-5">
+    <div class="card shadow w-50 mb-4">
+        <div class="card-body">
+            <h1 class="text-center mb-4">Modifier une Catégorie</h1>
+            <form method="post">
+                {% csrf_token %}
+                
+                <!-- Nom de la catégorie -->
+                <div class="mb-3">
+                    <label for="category_name" class="form-label">Nom de la catégorie :</label>
+                    <input type="text" class="form-control" id="category_name" name="category_name" value="{{ categorie.category_name }}">
+                </div>
+
+                <!-- Type -->
+                <div class="mb-3">
+                    <label for="type" class="form-label">Type :</label>
+                    <select class="form-select" id="type" name="type">
+                        <option value="produit" {% if categorie.type == "produit" %}selected{% endif %}>Produit</option>
+                        <option value="service" {% if categorie.type == "service" %}selected{% endif %}>Service</option>
+                        <option value="autre" {% if categorie.type == "autre" %}selected{% endif %}>Autre</option>
+                    </select>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description :</label>
+                    <textarea class="form-control" id="description" name="description" rows="3">{{ categorie.description }}</textarea>
+                </div>
+
+                <!-- Boutons -->
+                <div class="d-flex justify-content-between mt-3">
+                    <a href="{% url 'categorie' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Retour</a>
+                    <button type="submit" class="btn btn-warning"><i class="fas fa-edit"></i> Modifier la catégorie</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+{% endblock contenu %}

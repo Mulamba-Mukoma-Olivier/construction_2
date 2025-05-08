@@ -1,0 +1,86 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Aperçu du Projet{% endblock title %}
+
+{% block contenu %}
+{% include "navbar/navbar.html" %}
+
+<div class="container-fluid mt-4 mb-5">
+    <div class="row">
+        <!-- Barre latérale -->
+        <div class="col-md-3">
+            <div class="card shadow-lg p-3 mb-4 rounded">
+                <h5 class="text-center"><i class="fas fa-bars"></i> Navigation</h5>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="{% url 'projet' %}" class="text-decoration-none"><i class="fas fa-arrow-left"></i> Retour aux Projets</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contenu principal -->
+        <div class="col-md-9">
+            <h1 class="text-center mb-4">{{ projet.projet_name }}</h1>
+
+            <div class="row">
+                <!-- Informations générales -->
+                <div class="col-md-6">
+                    <div class="card shadow-lg p-3 mb-4 rounded">
+                        <h5 class="card-title"><i class="fas fa-info-circle"></i> Informations Générales</h5>
+                        <p><strong>Code :</strong> {{ projet.project_code }}</p>
+                        <p><strong>Entreprise :</strong> {{ projet.company.company_name }}</p>
+                        <p><strong>Localisation :</strong> {{ projet.location }}</p>
+                        <p><strong>Statut :</strong> <span class="badge bg-primary">{{ projet.status }}</span></p>
+                    </div>
+                </div>
+
+                <!-- Détails Financiers -->
+                <div class="col-md-6">
+                    <div class="card shadow-lg p-3 mb-4 rounded">
+                        <h5 class="card-title"><i class="fas fa-dollar-sign"></i> Détails Financiers</h5>
+                        <p><strong>Budget Total :</strong> <span class="badge bg-success">${{ projet.budget_total }}</span></p>
+                        <p><strong>Dépenses Actuelles :</strong> <span class="badge bg-danger">${{ projet.depenses_actuelles }}</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transactions Financières -->
+            <div class="card shadow-lg p-3 mb-5 rounded">
+                <h5 class="card-title"><i class="fas fa-exchange-alt"></i> Transactions Financières</h5>
+                {% if tresorerie %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Montant</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for transaction in tresorerie %}
+                                    <tr>
+                                        <td>{{ transaction.transaction_date }}</td>
+                                        <td>{{ transaction.description }}</td>
+                                        <td><span class="badge bg-danger">-${{ transaction.amount }}</span></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning text-center">
+                        😕 Aucune transaction trouvée.
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Actions -->
+            <div class="d-flex justify-content-between mt-3">
+                <a href="{% url 'modifier_projet' projet.id %}" class="btn btn-warning btn-lg"><i class="fas fa-edit"></i> Modifier le projet</a>
+                <a href="{% url 'projet' %}" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contenu %}

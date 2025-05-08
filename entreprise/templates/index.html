@@ -1,0 +1,96 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Accueil{% endblock title %}
+
+{% block contenu %}
+{% include "navbar/navbar.html" %}
+
+<div class="container mt-4 mb-5">
+    <!-- Hero Section -->
+    <div class="jumbotron text-center bg-primary text-white py-5 rounded">
+        <h1 class="display-4">Bienvenue sur la Plateforme de Gestion</h1>
+        <p class="lead">Gérez vos projets, finances et transactions avec simplicité et efficacité.</p>
+        <a href="{% url 'projet' %}" class="btn btn-light btn-lg"><i class="fas fa-tasks"></i> Explorer les Projets</a>
+    </div>
+
+    <!-- Section Fonctionnalités -->
+    <div class="row mt-4">
+        <!-- Projets -->
+        <div class="col-md-4">
+            <div class="card shadow h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><i class="fas fa-tasks"></i> Gestion des Projets</h5>
+                    <p>Suivez l'avancement de vos projets de construction et leur gestion.</p>
+                    <a href="{% url 'projet' %}" class="btn btn-primary">Accéder</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Compte bancaire -->
+        <div class="col-md-4">
+            <div class="card shadow h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><i class="fas fa-exchange-alt"></i> Comptes Bancaires</h5>
+                    <p>Visualisez vos finances et gérez vos comptes bancaires en toute sécurité.</p>
+                   
+                    <a href="{% url 'compte_bancaire' %}" class="btn btn-primary">Accéder</a>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Transactions -->
+        <div class="col-md-4">
+            <div class="card shadow h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><i class="fas fa-exchange-alt"></i> Transactions</h5>
+                    <p>Suivez vos opérations financières en temps réel et gardez le contrôle.</p>
+                    <a href="{% url 'transaction' %}" class="btn btn-primary">Accéder</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Témoignages -->
+    <div class="mt-5">
+        <h2 class="text-center mb-4">Ce que disent nos utilisateurs</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <p>"Une solution révolutionnaire pour la gestion de projets et finances."</p>
+                        <h6 class="text-primary">- Jean M., Entrepreneur</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <p>"Simple, efficace et intuitif. Je recommande vivement cette plateforme."</p>
+                        <h6 class="text-primary">- Marie T., Gestionnaire</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <p>"Un outil complet pour garder une visibilité claire sur mes finances."</p>
+                        <h6 class="text-primary">- Alain K., Investisseur</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pied de page amélioré -->
+    <footer class="mt-5 text-center bg-light py-4">
+        <p class="mb-1">&copy; 2025 - Plateforme de Gestion. Tous droits réservés.</p>
+        <a href="#" class="text-decoration-none me-3">Mentions légales</a>
+        <a href="#" class="text-decoration-none">Politique de confidentialité</a>
+    </footer>
+</div>
+
+<!-- Lien vers Font Awesome pour les icônes -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+{% endblock contenu %}

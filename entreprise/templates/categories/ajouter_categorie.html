@@ -1,0 +1,48 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Ajouter une Catégorie{% endblock title %}
+
+{% block contenu %}
+{% include "navbar/navbar.html" %}
+
+<div class="container d-flex align-items-center justify-content-center vh-100 mt-2 mb-2">
+    <div class="card shadow w-50 mb-4">
+        <div class="card-body">
+            <h1 class="text-center mb-4">Ajouter une Catégorie</h1>
+            <form method="post">
+                {% csrf_token %}
+                <!-- Nom de la catégorie -->
+                <div class="mb-3">
+                    <label for="category_name" class="form-label">Nom de la catégorie :</label>
+                    <input type="text" class="form-control" id="category_name" name='categorie_name' placeholder="Ex : Travaux Publics">
+                </div>
+
+                <!-- Type -->
+                <div class="mb-3">
+                    <label for="type" class="form-label">Type :</label>
+                    <select class="form-select" id="type" name='type'>
+                        <option value="produit">Produit</option>
+                        <option value="service">Service</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description :</label>
+                    <textarea class="form-control" name='description' id="description" rows="3" placeholder="Ex : Catégorie utilisée pour les matériaux de construction"></textarea>
+                </div>
+
+                <!-- Bouton soumettre -->
+                <div class="d-flex justify-content-between mt-3">
+                    <a href="{% url 'categorie' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Retour</a>
+                    <button type="submit"name='btn_ajout' class="btn btn-success"><i class="fas fa-plus-circle"></i> Ajouter la catégorie</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+{% endblock contenu %}

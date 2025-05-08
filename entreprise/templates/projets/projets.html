@@ -1,0 +1,49 @@
+{% extends "base_templates.html" %}
+{% load static %}
+
+{% block title %}Projets{% endblock title %}
+
+{% block contenu %}
+{% include "navbar/navbar.html" %}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">📌 Liste des Projets</h1>
+
+    <!-- Bouton Ajouter un projet -->
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'ajouter_projet' %}" class="btn btn-success btn-lg shadow"><i class="fas fa-plus-circle"></i> Ajouter un projet</a>
+    </div>
+
+    <!-- Affichage des projets sous forme de cartes -->
+    {% if donnee %}
+        <div class="row">
+            {% for valeur in donnee %}
+                <div class="col-md-4">
+                    <div class="card shadow-lg mb-4">
+                        <div class="card-header text-white {% if valeur.status == 'en_cours' %} bg-success {% elif valeur.status == 'termine' %} bg-secondary {% else %} bg-warning {% endif %}">
+                            <h5 class="card-title text-center">{{ valeur.projet_name }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>📌 Code :</strong> {{ valeur.project_code }}</p>
+                            <p><strong>🏢 Entreprise :</strong> {{ valeur.company.company_name }}</p>
+                            <p><strong>📍 Localisation :</strong> {{ valeur.location }}</p>
+                            <p><strong>🔄 Statut :</strong> <span class="badge {% if valeur.status == 'en_cours' %} bg-success {% elif valeur.status == 'termine' %} bg-secondary {% else %} bg-warning {% endif %}">{{ valeur.status }}</span></p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="{% url 'modifier_projet' valeur.id %}" class="btn btn-outline-primary btn-sm"><i class="fas fa-edit"></i> Modifier</a>
+                            <a href="{% url 'details_projet' valeur.id %}" class="btn btn-outline-info btn-sm"><i class="fas fa-eye"></i> Détails</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-warning text-center" role="alert">
+            😕 Aucun projet trouvé. Ajoutez-en un pour commencer !
+        </div>
+    {% endif %}
+</div>
+
+
+
+{% endblock contenu %}

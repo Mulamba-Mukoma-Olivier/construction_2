@@ -1,0 +1,29 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Ajouter un Compte Bancaire{% endblock title %}
+
+{% block contenu %}
+{% include "navbar/navbar.html" %}
+
+<div class="container mt-4 mb-4">
+    <h1 class="text-center mb-4">Ajouter un Compte Bancaire</h1>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <!-- Bouton Soumettre -->
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'compte_bancaire' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Retour</a>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i> Ajouter le Compte</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+{% endblock contenu %}

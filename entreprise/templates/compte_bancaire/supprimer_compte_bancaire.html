@@ -1,0 +1,30 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Supprimer un Compte Bancaire{% endblock title %}
+
+{% block contenu %}
+{% include "navbar/navbar.html" %}
+
+<div class="container d-flex align-items-center justify-content-center vh-100 mt-5 mb-5">
+    <div class="card shadow w-50 mb-4">
+        <div class="card-body">
+            <h1 class="text-center text-danger mb-4">Supprimer un Compte Bancaire</h1>
+
+            <p class="text-center">Voulez-vous vraiment supprimer le compte bancaire associé à <strong>""</strong> ?</p>
+            <p class="text-center"><strong>Numéro de compte :</strong></p>
+            <p class="text-center"><strong>Solde actuel :</strong></p>
+
+            <p class="text-center text-danger">⚠ Cette action est **irréversible**.</p>
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="d-flex justify-content-between mt-3">
+                    <a href="{% url 'compte_bancaire' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Annuler</a>
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Confirmer la suppression</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock contenu %}

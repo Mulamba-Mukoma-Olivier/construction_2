@@ -1,0 +1,54 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Gestion des Catégories{% endblock title %}
+
+{% block contenu %}
+{% include "navbar/navbar.html" %}
+
+<div class="container mt-4 mb-4">
+    <h1 class="text-center mb-4">Gestion des Catégories</h1>
+
+    <!-- Bouton Ajouter une catégorie -->
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'ajouter_categorie' %}" class="btn btn-success"><i class="fas fa-plus-circle"></i> Ajouter une catégorie</a>
+    </div>
+
+    <!-- Liste des catégories -->
+    <div class="card shadow">
+        <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-list"></i> Liste des Catégories</h5>
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom de la Catégorie</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for categorie_valeur in categorie_donnee %}
+                        <tr>
+                            <td>{{ categorie_valeur.id }}</td> <!-- ✅ Affiche l'ID de la catégorie -->
+                            <td>{{ categorie_valeur.category_name }}</td> 
+                            <td>{{ categorie_valeur.description }}</td>
+                            <td>
+                                <a href="{% url 'modifier_categorie' categorie_valeur.id %}" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </a>
+                                <a href="{% url 'supprimer_categorie' categorie_valeur.id %}" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i> Supprimer
+                                </a>
+                            </td>                            
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Lien vers Font Awesome pour les icônes -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+{% endblock contenu %}

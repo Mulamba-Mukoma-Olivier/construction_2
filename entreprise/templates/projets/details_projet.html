@@ -1,0 +1,89 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Détail du Projet{% endblock title %}
+
+{% block contenu %}
+<div class="container mt-4 mb-4">
+    <h1 class="text-center mb-4">{{ projet.projet_name }}</h1>
+
+    <!-- Informations générales du projet -->
+    <div class="card shadow-lg mb-4">
+        <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-info-circle"></i> Informations Générales</h5>
+            <p><strong>📌 Nom du projet :</strong> {{ projet.projet_name }}</p>
+            <p><strong>📅 Date de début :</strong> {{ projet.start_date }}</p>
+            <p><strong>📍 Localisation :</strong> {{ projet.location }}</p>
+            <p><strong>🔄 Statut :</strong> 
+                <span class="badge {% if projet.status == 'en_cours' %} bg-success {% elif projet.status == 'termine' %} bg-secondary {% else %} bg-warning {% endif %}">
+                    {{ projet.status }}
+                </span>
+            </p>
+            <p><strong>💰 Budget total :</strong> <span class="badge bg-success">${{ projet.budget_total }}</span></p>
+        </div>
+    </div>
+
+    <!-- Flux de trésorerie associés -->
+    <div class="card shadow-lg mb-4">
+        <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-coins"></i> Flux de trésorerie associés</h5>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Montant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaction in transactions %}
+                            <tr>
+                                <td>{{ transaction.transaction_date }}</td>
+                                <td>{{ transaction.description }}</td>
+                                <td><span class="badge bg-danger">-${{ transaction.amount }}</span></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Résumé financier -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-success shadow-lg mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-dollar-sign"></i> Solde restant</h5>
+                    <p class="card-text"><strong>${{ projet.solde_restant }}</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-warning shadow-lg mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-chart-line"></i> Dépenses totales</h5>
+                    <p class="card-text"><strong>${{ projet.depenses_totales }}</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info shadow-lg mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-money-bill-wave"></i> Revenus générés</h5>
+                    <p class="card-text"><strong>${{ projet.revenus_generes }}</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="d-flex justify-content-between mt-4">
+        <a href="{% url 'projet' %}" class="btn btn-secondary btn-lg shadow"><i class="fas fa-arrow-left"></i> Retour à la liste des projets</a>
+    </div>
+</div>
+
+<!-- Font Awesome pour les icônes -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+{% endblock contenu %}

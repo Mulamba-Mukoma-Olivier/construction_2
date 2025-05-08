@@ -1,0 +1,84 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Ajouter une Transaction{% endblock title %}
+
+{% block contenu %}
+{% include "navbar/navbar.html" %}
+
+<div class="container mt-4 mb-4">
+    <h1 class="text-center mb-4">Ajouter une Transaction</h1>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <!-- Type de transaction -->
+                {% comment %} <div class="mb-3">
+                    <label for="typeTransaction" class="form-label">Type de transaction :</label>
+                    <select class="form-select" id="typeTransaction">
+                        <option value="credit">Crédit</option>
+                        <option value="debit">Débit</option>
+                    </select>
+                </div>
+
+                <!-- Date de la transaction -->
+                <div class="mb-3">
+                    <label for="dateTransaction" class="form-label">Date de la transaction :</label>
+                    <input type="date" class="form-control" id="dateTransaction">
+                </div>
+
+                <!-- Catégorie -->
+                <div class="mb-3">
+                    <label for="categorie" class="form-label">Catégorie :</label>
+                    <select class="form-select" id="categorie">
+                        <option value="fournisseur">Paiement Fournisseur</option>
+                        <option value="client">Réception Paiement Client</option>
+                        <option value="investissement">Investissement</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description :</label>
+                    <textarea class="form-control" id="description" rows="3"></textarea>
+                </div>
+
+                <!-- Montant -->
+                <div class="mb-3">
+                    <label for="montant" class="form-label">Montant :</label>
+                    <input type="number" class="form-control" id="montant">
+                </div>
+
+                <!-- Méthode de paiement -->
+                <div class="mb-3">
+                    <label for="methodePaiement" class="form-label">Méthode de paiement :</label>
+                    <select class="form-select" id="methodePaiement">
+                        <option value="virement">Virement bancaire</option>
+                        <option value="espece">Espèces</option>
+                        <option value="cheque">Chèque</option>
+                        <option value="carte">Carte de crédit</option>
+                    </select>
+                </div>
+
+                <!-- Référence -->
+                <div class="mb-3">
+                    <label for="reference" class="form-label">Référence :</label>
+                    <input type="text" class="form-control" id="reference">
+                </div> {% endcomment %}
+
+                <!-- Bouton Soumettre -->
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'transaction' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Retour</a>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i> Ajouter la transaction</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Lien vers Font Awesome pour les icônes -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+{% endblock contenu %}
