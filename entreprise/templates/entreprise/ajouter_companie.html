@@ -1,0 +1,19 @@
+{% extends "base_templates.html" %}
+{% load static %}
+
+{% block title %}Ajouter une entreprise{% endblock title %}
+
+{% block contenu %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Ajouter une entreprise</h1>
+    
+    <form method="POST" class="card p-4 shadow">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class='d-flex justify-content-between'>
+            <a href="{% url 'companie' %}" class="btn btn-secondary">Retour</a>
+            <button type="submit" class="btn btn-success">Enregistrer</button>
+        </div>
+    </form>
+</div>
+{% endblock contenu %}

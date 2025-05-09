@@ -42,14 +42,15 @@
     </div>
 
     <!-- Liste des transactions sous forme de cartes -->
+    <div class="container">
     <div class="row">
-        {% for transaction in donnee_t %}
+        {% for transaction in transactions %}  {# Iterate over the "transactions" list #}
             <div class="col-md-4">
                 <div class="card shadow-lg p-3 mb-4 rounded">
                     <div class="card-body">
                         <h5 class="card-title"><i class="fas fa-calendar-day"></i> {{ transaction.date }}</h5>
                         <p><strong>📝 Description :</strong> {{ transaction.description }}</p>
-                        <p><strong>💸 Montant :</strong> 
+                        <p><strong>💸 Montant :</strong>
                             <span class="badge {% if transaction.type == 'credit' %} bg-success {% else %} bg-danger {% endif %}">
                                 {% if transaction.type == 'credit' %} + {% else %} - {% endif %}${{ transaction.amount }}
                             </span>
@@ -59,6 +60,8 @@
                 </div>
             </div>
         {% endfor %}
+    </div>
+</div>
     </div>
 
     <!-- Retour -->

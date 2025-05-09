@@ -20,6 +20,7 @@ urlpatterns = [
     path('ajouter_projet/', ajouter_projet, name='ajouter_projet'),
     path('tableau_de_bord/', tableau_de_bord, name='tableau_de_bord'),
     path('modifier_compte_bancaire/<int:id>/', modifier_compte_bancaire, name='modifier_compte_bancaire'),
-    path('supprimer_compte_bancaire/', supprimer_compte_bancaire, name='supprimer_compte_bancaire'),
-    path('apercu_projet/<int:projet_id>/', apercu_projet, name='apercu_projet'),
+    path('supprimer_compte_bancaire/<int:compte_id>', supprimer_compte_bancaire, name='supprimer_compte_bancaire'),
+    path('companie/', companie, name='companie'),
+    path('ajouter_companie/', ajouter_companie, name='ajouter_companie'),
 ]

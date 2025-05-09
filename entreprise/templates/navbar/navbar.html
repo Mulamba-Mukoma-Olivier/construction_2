@@ -1,43 +1,87 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid d-flex justify-content-between">
-        <a class="navbar-brand" href="#">Construction</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        {% comment %} <div class="d-flex">
-            {% if user.authenticated %}
-                <a class="btn btn-outline-danger" href="#">Déconnexion</a>
-            {% else %}
-                 <a class="btn btn-outline-primary me-2 mr-2" href="{% url 'connexion' %}">Connexion</a>
-            {% endif %}
-        </div> {% endcomment %}
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav" id='ul_nav'>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'accueil' %}">Accueil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'categorie' %}">Categorie</a>
-                </li>
-                
-                <li class="nav-item">
-                    
-                    <a class="nav-link" href="{% url 'compte_bancaire' %}">Compte bancaire</a>
-                    
-                </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'projet' %}">Projet</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'tableau_de_bord' %}">Tableau de bord</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'transaction' %}">Transaction</a>
-                </li>
-            </ul>
-        </div>
-        
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">Construction</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accueil' %}">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'categorie' %}">Categorie</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'compte_bancaire' %}">Compte bancaire</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'companie' %}">Entreprise</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'projet' %}">Projet</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'tableau_de_bord' %}">Tableau de bord</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'transaction' %}">Transaction</a>
+        </li>
+      </ul>
+      <div class="d-flex">
+        {% if user.is_authenticated %}
+        <a class="btn btn-outline-danger" href="{% url 'deconnexion' %}"
+          >Déconnexion</a
+        >
+        {% else %}
+        <a class="btn btn-outline-light me-2" href="{% url 'connexion' %}"
+          >Connexion</a>
+        {% endif %}
+      </div>
     </div>
+  </div>
 </nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+
+    navbarToggler.addEventListener('click', function() {
+      navbarCollapse.classList.toggle('show'); // Use Bootstrap's 'show' class
+    });
+
+    // Close the navbar when a link is clicked (optional)
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        if (navbarCollapse.classList.contains('show')) {
+          navbarCollapse.classList.remove('show');
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  /* Optional:  Add some basic styling for better appearance */
+  .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.7); /* Slightly transparent white */
+  }
+
+  .navbar-nav .nav-link:hover {
+    color: white;
+  }
+
+  .navbar-brand {
+    font-weight: bold;
+  }
+</style>

@@ -5,69 +5,188 @@
 {% block contenu %}
 {% include "navbar/navbar.html" %}
 
-<div class="container mt-4 mb-4">
-    <h1 class="text-center mb-4">Détail du Compte Bancaire</h1>
-
-    <!-- Informations générales du compte -->
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <h5 class="card-title"><i class="fas fa-university"></i> Informations Générales</h5>
-            <p><strong>Entreprise :</strong> {{ compte.company.company_name }}</p>
-            <p><strong>Nom de la Banque :</strong> {{ compte.bank_name }}</p>
-            <p><strong>Numéro de Compte :</strong> {{ compte.account_number }}</p>
-            <p><strong>Devise :</strong> {{ compte.account_currency }}</p>
-        </div>
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h1 class="h2 text-gray-900 mb-0">Détail du Compte Bancaire</h1>
+        <a href="{% url 'compte_bancaire' %}" class="btn btn-link text-secondary">
+            <i class="fas fa-arrow-left fa-sm"></i> Retour à la liste
+        </a>
     </div>
 
-    <!-- Solde actuel -->
-    <div class="card shadow mb-4">
-        <div class="card-body text-center">
-            <h5 class="card-title"><i class="fas fa-wallet"></i> Solde Actuel</h5>
-            <p class="display-4"><span class="badge bg-success">{{ compte.current_balance }}</span></p>
-        </div>
-    </div>
+    <div class="row">
+        <!-- Account Overview -->
+        <div class="col-md-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Aperçu du Compte</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <h6 class="text-muted small">Entreprise</h6>
+                            <p class="mb-0">{{ compte.company.company_name }}</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <h6 class="text-muted small">Nom de la Banque</h6>
+                            <p class="mb-0">{{ compte.bank_name }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <h6 class="text-muted small">Numéro de Compte</h6>
+                            <p class="mb-0">{{ compte.account_number }}</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <h6 class="text-muted small">Devise</h6>
+                            <p class="mb-0">{{ compte.account_currency }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Historique des transactions -->
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <h5 class="card-title"><i class="fas fa-exchange-alt"></i> Historique des Transactions</h5>
-            <table class="table table-striped">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Date</th>
-                        <th>Description</th>
-                        <th>Montant</th>
-                        <th>Type</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for transaction in transactions %}
-                        <tr>
-                            <td>{{ transaction.date }}</td>
-                            <td>{{ transaction.description }}</td>
-                            <td>
-                                <span class="badge">
-                                    {{ transaction.amount }}
-                                </span>
-                            </td>
-                            <td>
-                                <span class="badge">
-                                    {{ transaction.type }}
-                                </span>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <!-- Transaction History -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white py-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 font-weight-bold text-primary">Historique des Transactions</h6>
+                        <div>
+                            <button class="btn btn-sm btn-light"><i class="fas fa-file-export"></i> Exporter</button>
+                            <button class="btn btn-sm btn-light"><i class="fas fa-filter"></i> Filtrer</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-borderless table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th class="text-right">Montant</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for transaction in transactions %}
+                                    <tr>
+                                        <td>{{ transaction.date }}</td>
+                                        <td>{{ transaction.description }}</td>
+                                        <td class="text-right">${{ transaction.amount }}</td>
+                                        <td>{{ transaction.type }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- Actions -->
-    <div class="d-flex justify-content-between mt-4 mb-4">
-        <a href="{% url 'compte_bancaire' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Retour à la liste des comptes</a>
+        <!-- Account Summary & Actions -->
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Résumé du Solde</h6>
+                </div>
+                <div class="card-body text-center">
+                    <h1 class="font-weight-bold text-success">${{ compte.current_balance }}</h1>
+                    <p class="text-muted">Solde Actuel</p>
+                    <hr>
+                    <a href="#" class="btn btn-outline-primary btn-block"><i class="fas fa-plus-circle"></i> Ajouter des Fonds</a>
+                    <a href="#" class="btn btn-outline-danger btn-block"><i class="fas fa-minus-circle"></i> Retirer des Fonds</a>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Actions</h6>
+                </div>
+                <div class="card-body">
+                    <a href="#" class="btn btn-primary btn-block mb-2"><i class="fas fa-edit"></i> Modifier le Compte</a>
+                    <a href="#" class="btn btn-danger btn-block"><i class="fas fa-trash"></i> Supprimer le Compte</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<style>
+    body {
+        font-family: 'Nunito', sans-serif;
+        background-color: #f8f9fc;
+    }
 
+    .container {
+        max-width: 1200px;
+    }
+
+    /* General */
+    .text-gray-900 {
+        color: #212529 !important;
+    }
+
+    .btn-link {
+        color: #6c757d;
+    }
+
+    .btn-link:hover {
+        color: #5a6268;
+    }
+
+    /* Card */
+    .card {
+        border: none;
+    }
+
+    .card-header {
+        border-bottom: 1px solid #e3e6f0;
+    }
+
+    .card-header .font-weight-bold {
+        color: #4e73df;
+    }
+
+    /* Table */
+    .table-borderless td,
+    .table-borderless th {
+        border: none;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+    }
+
+    /* Buttons */
+    .btn-light {
+        background-color: #f8f9fa;
+        border-color: #ddd;
+    }
+
+    .btn-light:hover {
+        background-color: #e2e6ea;
+    }
+
+    .btn-outline-primary {
+        color: #4e73df;
+        border-color: #4e73df;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #4e73df;
+        color: #fff;
+    }
+
+    .btn-outline-danger {
+        color: #e74a3b;
+        border-color: #e74a3b;
+    }
+
+    .btn-outline-danger:hover {
+        background-color: #e74a3b;
+        color: #fff;
+    }
+</style>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 {% endblock contenu %}

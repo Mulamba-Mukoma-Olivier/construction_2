@@ -10,9 +10,9 @@
         <div class="card-body">
             <h1 class="text-center text-danger mb-4">Supprimer un Compte Bancaire</h1>
 
-            <p class="text-center">Voulez-vous vraiment supprimer le compte bancaire associé à <strong>""</strong> ?</p>
-            <p class="text-center"><strong>Numéro de compte :</strong></p>
-            <p class="text-center"><strong>Solde actuel :</strong></p>
+            <p class="text-center">Voulez-vous vraiment supprimer le compte bancaire associé à <strong>{{ compte.bank_name }}</strong> ?</p>
+            <p class="text-center"><strong>Numéro de compte :</strong> {{ compte.account_number }}</p>
+            <p class="text-center"><strong>Solde actuel :</strong> {{ compte.current_balance }} {{ compte.account_currency }}</p>
 
             <p class="text-center text-danger">⚠ Cette action est **irréversible**.</p>
 
