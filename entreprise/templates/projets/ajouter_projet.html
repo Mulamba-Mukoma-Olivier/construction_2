@@ -2,11 +2,12 @@
 
 {% block title %}Ajouter un Projet{% endblock title %}
 
-{% block contenu %}{% include "navbar/navbar.html" %}
+{% block contenu %}
+{% include "navbar/navbar.html" %}
 
 <div class="container d-flex align-items-center justify-content-center vh-100 mt-5 mb-5">
-    <div class="card shadow w-50 mb-4 mt-2 mb-2">
-        <div class="card-body ">
+    <div class="card shadow w-100 mb-4 mt-2 mb-2" style="max-width: 500px;">
+        <div class="card-body">
             <h1 class="text-center">Ajouter un Projet</h1>
             <form method="post" action="{% url 'ajouter_projet' %}">
                 {% csrf_token %}
@@ -15,7 +16,7 @@
                 <div class="d-flex justify-content-between mt-3">
                     <a href="{% url 'projet' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Retour</a>
                     <button type="submit" class="btn btn-success"><i class="fas fa-plus-circle"></i> Ajouter le projet</button>
-                </div> 
+                </div>
             </form>
         </div>
     </div>

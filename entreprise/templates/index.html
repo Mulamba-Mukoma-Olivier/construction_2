@@ -21,37 +21,37 @@
         <div class="container">
             <div class="row g-4">
                 <!-- Project Management -->
-                <div class="col-md-4">
+                <div class="col-12 col-md-4">
                     <div class="card h-100 shadow-lg border-0 feature-card">
-                        <div class="card-body text-center">
+                        <div class="card-body text-center d-flex flex-column">
                             <i class="fas fa-project-diagram fa-3x text-primary mb-3"></i>
                             <h5 class="card-title fw-bold">Gestion de Projets</h5>
-                            <p class="card-text text-muted">Planifiez, suivez et exécutez vos projets avec une efficacité inégalée.</p>
-                            <a href="{% url 'projet' %}" class="btn btn-primary stretched-link">Explorer</a>
+                            <p class="card-text text-muted flex-grow-1">Planifiez, suivez et exécutez vos projets avec une efficacité inégalée.</p>
+                            <a href="{% url 'projet' %}" class="btn btn-primary stretched-link mt-auto">Explorer</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Bank Accounts -->
-                <div class="col-md-4">
+                <div class="col-12 col-md-4">
                     <div class="card h-100 shadow-lg border-0 feature-card">
-                        <div class="card-body text-center">
+                        <div class="card-body text-center d-flex flex-column">
                             <i class="fas fa-piggy-bank fa-3x text-success mb-3"></i>
                             <h5 class="card-title fw-bold">Comptes Bancaires</h5>
-                            <p class="card-text text-muted">Gérez vos finances en toute sécurité et visualisez vos transactions en temps réel.</p>
-                            <a href="{% url 'compte_bancaire' %}" class="btn btn-success stretched-link">Gérer</a>
+                            <p class="card-text text-muted flex-grow-1">Gérez vos finances en toute sécurité et visualisez vos transactions en temps réel.</p>
+                            <a href="{% url 'compte_bancaire' %}" class="btn btn-success stretched-link mt-auto">Gérer</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Transactions -->
-                <div class="col-md-4">
+                <div class="col-12 col-md-4">
                     <div class="card h-100 shadow-lg border-0 feature-card">
-                        <div class="card-body text-center">
+                        <div class="card-body text-center d-flex flex-column">
                             <i class="fas fa-hand-holding-usd fa-3x text-info mb-3"></i>
                             <h5 class="card-title fw-bold">Transactions</h5>
-                            <p class="card-text text-muted">Analysez vos flux financiers et prenez des décisions éclairées pour optimiser votre rentabilité.</p>
-                            <a href="{% url 'transaction' %}" class="btn btn-info stretched-link">Analyser</a>
+                            <p class="card-text text-muted flex-grow-1">Analysez vos flux financiers et prenez des décisions éclairées pour optimiser votre rentabilité.</p>
+                            <a href="{% url 'transaction' %}" class="btn btn-info stretched-link mt-auto">Analyser</a>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
         <div class="container">
             <h2 class="text-center mb-5 fw-bold">Témoignages</h2>
             <div class="row">
-                <div class="col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4">
                     <div class="card shadow-sm border-0 testimonial-card">
                         <div class="card-body">
                             <p class="card-text">"Une plateforme qui a transformé notre façon de gérer nos projets et nos finances. Un gain de temps et d'efficacité considérable !"</p>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4">
                     <div class="card shadow-sm border-0 testimonial-card">
                         <div class="card-body">
                             <p class="card-text">"L'interface est intuitive et les fonctionnalités sont complètes. Je recommande vivement cette solution à toutes les entreprises."</p>
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4">
                     <div class="card shadow-sm border-0 testimonial-card">
                         <div class="card-body">
                             <p class="card-text">"Un outil indispensable pour avoir une vision claire de nos finances et prendre des décisions éclairées. Un investissement rentable !"</p>
@@ -235,6 +235,45 @@
     .footer {
         padding: 3rem 0;
         color: #fff;
+    }
+
+    /* Media Queries for Responsiveness */
+    @media (max-width: 992px) { /* Adjust breakpoint as needed */
+        .hero h1 {
+            font-size: 3.5rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 3rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+        }
+
+        .feature-card {
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card {
+            margin-bottom: 20px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .hero p {
+            font-size: 1rem;
+        }
     }
 </style>
 {% endblock contenu %}
