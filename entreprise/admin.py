@@ -2,10 +2,10 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from .models import User, Company, Projet, Categorie, Tresorerie, CompteBancaire
+from .models import CustomUser, Company, Projet, Categorie, Tresorerie, CompteBancaire
 
 # Enregistrer chaque modèle
-@admin.register(User)
+@admin.register(CustomUser)
 class UserAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'category', 'phone_number', 'address')
     search_fields = ('full_name', 'phone_number', 'category')

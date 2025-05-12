@@ -1,0 +1,77 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Inscription{% endblock title %}
+
+{% block contenu %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Créer un compte</h2>
+
+    <div class="card shadow-lg p-4 rounded-lg">
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- Gestion des erreurs -->
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for field, errors in form.errors.items %}
+                            <li>{{ field }} : {{ errors }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <!-- Champs du formulaire -->
+            <div class="mb-3">
+                <label for="{{ form.username.id_for_label }}" class="form-label">👤 Nom d'utilisateur</label>
+                {{ form.username }}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.email.id_for_label }}" class="form-label">📧 Email</label>
+                {{ form.email }}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.full_name.id_for_label }}" class="form-label">📝 Nom complet</label>
+                {{ form.full_name }}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.phone_number.id_for_label }}" class="form-label">📞 Numéro de téléphone</label>
+                {{ form.phone_number }}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.category.id_for_label }}" class="form-label">🔰 Catégorie</label>
+                {{ form.category }}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.password1.id_for_label }}" class="form-label">🔒 Mot de passe</label>
+                {{ form.password1 }}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.password2.id_for_label }}" class="form-label">🔒 Confirmation du mot de passe</label>
+                {{ form.password2 }}
+            </div>
+
+            <!-- Bouton d'inscription -->
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success btn-lg shadow">
+                    <i class="fas fa-user-plus"></i> S'inscrire
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Lien vers la connexion -->
+    <div class="text-center mt-4">
+        <p>Déjà inscrit ? <a href="{% url 'login' %}" class="text-primary">Connectez-vous ici</a></p>
+    </div>
+</div>
+
+<!-- Font Awesome pour les icônes -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+{% endblock %}

@@ -1,5 +1,21 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from .models import CustomUser
 from .models import Categorie, CompteBancaire, Projet, Transaction, Company
+from django.contrib.auth.forms import AuthenticationForm
+
+class CustomLoginForm(AuthenticationForm):
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nom d’utilisateur'})
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Mot de passe'})
+    )
+    
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email', 'full_name', 'phone_number', 'category', 'password1', 'password2']
 
 class CompanyForm(forms.ModelForm):
     class Meta:
@@ -132,3 +148,47 @@ class TransactionForm(forms.ModelForm):
             'create_at': forms.DateInput(attrs={'type':'date','class': 'form-control'}),
             'update_at': forms.DateInput(attrs={'type':'date','class': 'form-control'}),
         }
+
+class StyledFormMixin:
+    """Ajoute des classes Bootstrap aux champs du formulaire."""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': 'form-control shadow-sm rounded-lg',
+                'placeholder': field.label
+            })
+
+class EntreeForm(forms.ModelForm, StyledFormMixin):
+    class Meta:
+        model = Transaction
+        fields = ['compte', 'date', 'description', 'amount']
+        widgets = {
+            'date': forms.DateInput(attrs={'class': 'form-control','type': 'date'}),
+            'description': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Détail de la transaction'}),
+            'amount': forms.NumberInput(attrs={'class': 'form-control','step': '0.01'}),
+        }
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.type = 'credit'  # Forcer comme entrée
+        if commit:
+            instance.save()
+        return instance
+
+class SortieForm(forms.ModelForm, StyledFormMixin):
+    class Meta:
+        model = Transaction
+        fields = ['compte', 'date', 'description', 'amount']
+        widgets = {
+            'date': forms.DateInput(attrs={'class': 'form-control','type': 'date'}),
+            'description': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Motif du paiement'}),
+            'amount': forms.NumberInput(attrs={'class': 'form-control','step': '0.01'}),
+        }
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.type = 'debit'  # Forcer comme sortie
+        if commit:
+            instance.save()
+        return instance

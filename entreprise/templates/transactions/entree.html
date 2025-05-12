@@ -1,0 +1,61 @@
+{% extends "base_templates.html" %}
+{% block contenu %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Ajouter une Entrée</h2>
+    
+    <div class="card shadow-lg p-4 rounded-lg">
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- Affichage des erreurs -->
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for field, errors in form.errors.items %}
+                            <li>{{ field }} : {{ errors }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <!-- Champs du formulaire -->
+            <div class="mb-3">
+                <label for="{{ form.compte.id_for_label }}" class="form-label">🏦 Compte associé</label>
+                {{ form.compte }}
+            </div>
+            
+            <div class="mb-3">
+                <label for="{{ form.date.id_for_label }}" class="form-label">📅 Date de transaction</label>
+                {{ form.date }}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.description.id_for_label }}" class="form-label">📝 Description</label>
+                {{ form.description }}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.amount.id_for_label }}" class="form-label">💰 Montant</label>
+                {{ form.amount }}
+            </div>
+
+            <!-- Bouton -->
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-lg {% if form.instance.type == 'credit' %}btn-success{% else %}btn-danger{% endif %} shadow">
+                    <i class="fas fa-check-circle"></i> Enregistrer la transaction
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Bouton Retour -->
+    <div class="text-center mt-4">
+        <a href="{% url 'transaction' %}" class="btn btn-secondary btn-lg shadow">
+            <i class="fas fa-arrow-left"></i> Retour
+        </a>
+    </div>
+</div>
+
+<!-- Font Awesome pour les icônes -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+{% endblock %}
